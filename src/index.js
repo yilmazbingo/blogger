@@ -7,64 +7,31 @@ import Routes from "./client/Routes";
 import "regenerator-runtime/runtime";
 import renderer from "./helpers/renderer";
 import createStore from "./helpers/createStore";
-const passport = require("passport");
+//-----------------------THIS IS VERY IMPORTANT--------------
+// mongoose and user should be required before passport
+import "./server/mongoose";
+import "./server/models/User";
+import "./server/services/passport";
+import CookieSession from "cookie-session";
+import passport from "passport";
 const app = express();
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const proxy = require("express-http-proxy");
+console.log(process.env.NODE_ENV);
+process.env.GOOGlE_CLIENT_ID;
 
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID:
-        "82029309763-pkpvj8blq8nqg46u6s4elna2fl6on66k.apps.googleusercontent.com",
-      clientSecret: "xspMJELJly6TkilCjE4ktYQL",
-      callbackURL: "/auth/google/callback",
-      proxy: true,
-    },
-    (accessToken) => console.log(accessToken)
-  )
+app.use(
+  CookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    //The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.
+    keys: process.env.COOKIE_KEY,
+  })
 );
-// app.use(
-//   "/api",
-//   createProxyMiddleware({
-//     target: "http://localhost:5000",
-//     changeOrigin: true,
-//   })
-// );
-// // app.use("/auth/google", proxy("http://localhost:5000"));
 
-// app.use(
-//   "/auth/google",
-//   createProxyMiddleware({
-//     target: "http://localhost:5000",
-//   })
-// );
-
-// app.use(
-//   ["/api", "/auth/google"],
-//   createProxyMiddleware({
-//     target: "http://127.0.0.1:5000",
-//   })
-// );
-
-// app.use(
-//   "/auth/google",
-//   proxy("http://localhost:5000", {
-//     proxyReqOptDecorator(opts) {
-//       opts.header["x-forwarded-host"] = "localhost:3000";
-//       return opts;
-//     },
-//   })
-// );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static("public"));
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-app.get("/auth/google/callback", passport.authenticate("google"));
-//since we set public folder as static folder as soon as express sees the src="bundle.js" it will look into the public folder.
+app.use("/auth", require("./server/routes/authRoutes"));
 
 app.get("*", (req, res) => {
   //boot up location on the server side.

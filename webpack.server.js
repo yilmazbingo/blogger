@@ -11,6 +11,6 @@ module.exports = merge(baseConfig, {
   externals: [nodeWebExternals()],
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "build")
-  }
+    path: path.resolve(__dirname, "build"),
+  },
 });

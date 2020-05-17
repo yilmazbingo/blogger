@@ -190,7 +190,63 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ \"express\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"react\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react_router_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-config */ \"react-router-config\");\n/* harmony import */ var react_router_config__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_config__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _client_Routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./client/Routes */ \"./src/client/Routes.js\");\n/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! regenerator-runtime/runtime */ \"regenerator-runtime/runtime\");\n/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _helpers_renderer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers/renderer */ \"./src/helpers/renderer.js\");\n/* harmony import */ var _helpers_createStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helpers/createStore */ \"./src/helpers/createStore.js\");\n// const Home = require(\"./client/components/Home\").default;\n\n\n\n\n\n\n\n\nvar passport = __webpack_require__(/*! passport */ \"passport\");\n\nvar app = express__WEBPACK_IMPORTED_MODULE_0___default()();\n\nvar _require = __webpack_require__(/*! http-proxy-middleware */ \"http-proxy-middleware\"),\n    createProxyMiddleware = _require.createProxyMiddleware;\n\nvar proxy = __webpack_require__(/*! express-http-proxy */ \"express-http-proxy\");\n\nvar GoogleStrategy = __webpack_require__(/*! passport-google-oauth20 */ \"passport-google-oauth20\").Strategy;\n\npassport.use(new GoogleStrategy({\n  clientID: \"82029309763-pkpvj8blq8nqg46u6s4elna2fl6on66k.apps.googleusercontent.com\",\n  clientSecret: \"xspMJELJly6TkilCjE4ktYQL\",\n  callbackURL: \"/auth/google/callback\",\n  proxy: true\n}, function (accessToken) {\n  return console.log(accessToken);\n})); // app.use(\n//   \"/api\",\n//   createProxyMiddleware({\n//     target: \"http://localhost:5000\",\n//     changeOrigin: true,\n//   })\n// );\n// // app.use(\"/auth/google\", proxy(\"http://localhost:5000\"));\n// app.use(\n//   \"/auth/google\",\n//   createProxyMiddleware({\n//     target: \"http://localhost:5000\",\n//   })\n// );\n// app.use(\n//   [\"/api\", \"/auth/google\"],\n//   createProxyMiddleware({\n//     target: \"http://127.0.0.1:5000\",\n//   })\n// );\n// app.use(\n//   \"/auth/google\",\n//   proxy(\"http://localhost:5000\", {\n//     proxyReqOptDecorator(opts) {\n//       opts.header[\"x-forwarded-host\"] = \"localhost:3000\";\n//       return opts;\n//     },\n//   })\n// );\n\napp.use(express__WEBPACK_IMPORTED_MODULE_0___default.a[\"static\"](\"public\"));\napp.get(\"/auth/google\", passport.authenticate(\"google\", {\n  scope: [\"profile\", \"email\"]\n}));\napp.get(\"/auth/google/callback\", passport.authenticate(\"google\")); //since we set public folder as static folder as soon as express sees the src=\"bundle.js\" it will look into the public folder.\n\napp.get(\"*\", function (req, res) {\n  //boot up location on the server side.\n  var store = Object(_helpers_createStore__WEBPACK_IMPORTED_MODULE_6__[\"default\"])(); //some logic to initialzie and load data into the store\n\n  var promises = Object(react_router_config__WEBPACK_IMPORTED_MODULE_2__[\"matchRoutes\"])(_client_Routes__WEBPACK_IMPORTED_MODULE_3__[\"default\"], req.path).map(function (_ref) {\n    var route = _ref.route;\n    return route.loadData ? route.loadData(store) : null;\n  }); // console.log(promises);\n\n  Promise.all(promises).then(function () {\n    res.send(Object(_helpers_renderer__WEBPACK_IMPORTED_MODULE_5__[\"default\"])(req, store));\n  }); //will return an array of components that about to be rendered\n});\napp.listen(3000, function () {\n  console.log(\"listening on port 300\");\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ \"express\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"react\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react_router_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-config */ \"react-router-config\");\n/* harmony import */ var react_router_config__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_config__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _client_Routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./client/Routes */ \"./src/client/Routes.js\");\n/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! regenerator-runtime/runtime */ \"regenerator-runtime/runtime\");\n/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _helpers_renderer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers/renderer */ \"./src/helpers/renderer.js\");\n/* harmony import */ var _helpers_createStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helpers/createStore */ \"./src/helpers/createStore.js\");\n/* harmony import */ var _server_mongoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./server/mongoose */ \"./src/server/mongoose.js\");\n/* harmony import */ var _server_models_User__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./server/models/User */ \"./src/server/models/User.js\");\n/* harmony import */ var _server_models_User__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_server_models_User__WEBPACK_IMPORTED_MODULE_8__);\n/* harmony import */ var _server_services_passport__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./server/services/passport */ \"./src/server/services/passport.js\");\n/* harmony import */ var _server_services_passport__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_server_services_passport__WEBPACK_IMPORTED_MODULE_9__);\n/* harmony import */ var cookie_session__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! cookie-session */ \"cookie-session\");\n/* harmony import */ var cookie_session__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(cookie_session__WEBPACK_IMPORTED_MODULE_10__);\n/* harmony import */ var passport__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! passport */ \"passport\");\n/* harmony import */ var passport__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(passport__WEBPACK_IMPORTED_MODULE_11__);\n// const Home = require(\"./client/components/Home\").default;\n\n\n\n\n\n\n //-----------------------THIS IS VERY IMPORTANT--------------\n// mongoose and user should be required before passport\n\n\n\n\n\n\nvar app = express__WEBPACK_IMPORTED_MODULE_0___default()();\n\nvar _require = __webpack_require__(/*! http-proxy-middleware */ \"http-proxy-middleware\"),\n    createProxyMiddleware = _require.createProxyMiddleware;\n\nvar proxy = __webpack_require__(/*! express-http-proxy */ \"express-http-proxy\");\n\nconsole.log(\"development\");\nprocess.env.GOOGlE_CLIENT_ID;\napp.use(cookie_session__WEBPACK_IMPORTED_MODULE_10___default()({\n  maxAge: 30 * 24 * 60 * 60 * 1000,\n  //The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.\n  keys: \"randomNumber123456\"\n}));\napp.use(passport__WEBPACK_IMPORTED_MODULE_11___default.a.initialize());\napp.use(passport__WEBPACK_IMPORTED_MODULE_11___default.a.session());\napp.use(express__WEBPACK_IMPORTED_MODULE_0___default.a[\"static\"](\"public\"));\napp.use(\"/auth\", __webpack_require__(/*! ./server/routes/authRoutes */ \"./src/server/routes/authRoutes.js\"));\napp.get(\"*\", function (req, res) {\n  //boot up location on the server side.\n  var store = Object(_helpers_createStore__WEBPACK_IMPORTED_MODULE_6__[\"default\"])(); //some logic to initialzie and load data into the store\n\n  var promises = Object(react_router_config__WEBPACK_IMPORTED_MODULE_2__[\"matchRoutes\"])(_client_Routes__WEBPACK_IMPORTED_MODULE_3__[\"default\"], req.path).map(function (_ref) {\n    var route = _ref.route;\n    return route.loadData ? route.loadData(store) : null;\n  }); // console.log(promises);\n\n  Promise.all(promises).then(function () {\n    res.send(Object(_helpers_renderer__WEBPACK_IMPORTED_MODULE_5__[\"default\"])(req, store));\n  }); //will return an array of components that about to be rendered\n});\napp.listen(3000, function () {\n  console.log(\"listening on port 300\");\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/server/controllers/authCtrl.js":
+/*!********************************************!*\
+  !*** ./src/server/controllers/authCtrl.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var passport = __webpack_require__(/*! passport */ \"passport\");\n\nexports.getGoogle = passport.authenticate(\"google\", {\n  scope: [\"profile\", \"email\"]\n});\n\nexports.getCallback = function (req, res) {\n  res.redirect(\"/blogs\");\n}; //passport.js attaches logout() to the req object\n\n\nexports.logout = function (req, res) {\n  req.logout();\n  res.redirect(\"/\");\n};\n\nexports.currentUser = function (req, res) {\n  res.send(req.user);\n};\n\n//# sourceURL=webpack:///./src/server/controllers/authCtrl.js?");
+
+/***/ }),
+
+/***/ "./src/server/models/User.js":
+/*!***********************************!*\
+  !*** ./src/server/models/User.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar Schema = mongoose.Schema;\nvar userSchema = new Schema({\n  googleId: String,\n  displayName: String\n});\nmongoose.model(\"User\", userSchema); //For everything that uses mongoose models classes, we are not going to use require statements. Sometimes when you sue mongoose inside of the testing environment, sometimes your models files will be required into the project multiple times. Mongoose will get really confused when that happens and it will think that you are attempting to load in multiple models called User and then it will throw an error saying that you already loaded in.\n\n//# sourceURL=webpack:///./src/server/models/User.js?");
+
+/***/ }),
+
+/***/ "./src/server/mongoose.js":
+/*!********************************!*\
+  !*** ./src/server/mongoose.js ***!
+  \********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mongoose */ \"mongoose\");\n/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_0__);\n\nmongoose__WEBPACK_IMPORTED_MODULE_0___default.a.connect(\"mongodb://localhost:27017/blog\", {\n  useNewUrlParser: true,\n  useUnifiedTopology: true\n})[\"catch\"](function () {\n  \"db error\";\n\n  process.exit(1);\n}).then(function () {\n  return console.log(\"mongoose up and running\");\n});\n\n//# sourceURL=webpack:///./src/server/mongoose.js?");
+
+/***/ }),
+
+/***/ "./src/server/routes/authRoutes.js":
+/*!*****************************************!*\
+  !*** ./src/server/routes/authRoutes.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var router = __webpack_require__(/*! express */ \"express\").Router();\n\n__webpack_require__(/*! ../mongoose */ \"./src/server/mongoose.js\");\n\nvar passport = __webpack_require__(/*! passport */ \"passport\");\n\nvar authCtrl = __webpack_require__(/*! ../controllers/authCtrl */ \"./src/server/controllers/authCtrl.js\");\n\nrouter.get(\"/google\", authCtrl.getGoogle);\nrouter.get(\"/google/callback\", passport.authenticate(\"google\"), authCtrl.getCallback);\nrouter.get(\"/logout\", authCtrl.logout);\nrouter.get(\"/current_user\", authCtrl.currentUser);\nmodule.exports = router;\n\n//# sourceURL=webpack:///./src/server/routes/authRoutes.js?");
+
+/***/ }),
+
+/***/ "./src/server/services/passport.js":
+/*!*****************************************!*\
+  !*** ./src/server/services/passport.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }\n\nfunction _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \"next\", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \"throw\", err); } _next(undefined); }); }; }\n\nvar mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar passport = __webpack_require__(/*! passport */ \"passport\");\n\nvar GoogleStrategy = __webpack_require__(/*! passport-google-oauth20 */ \"passport-google-oauth20\").Strategy;\n\nvar User = mongoose.model(\"User\"); //This function is going to be automatically called by passport with our User model that we just fetched during querying a user. We are going to use that User model to generate our identifying piece of user information and after we do that we pass that information back to the passport and then passport will automatically stuff that token into the user’s cookie for us.\n\npassport.serializeUser(function (user, done) {\n  done(null, user.id);\n}); //When the client makes a request again, cookies will be automatically added to the request by the browser. Passport will take that token from the cookie and then pass it into a second function called deserializeUser in which we are going to take that identifying piece of information and turn it back into a User model that uniquely identifies that user. After the token gets passed into deserialize user, we somehow figure out what user that is.\n\npassport.deserializeUser(function (id, done) {\n  User.findById(id).then(function (user) {\n    done(null, user);\n  });\n});\npassport.use(new GoogleStrategy({\n  clientSecret: \"xspMJELJly6TkilCjE4ktYQL\",\n  clientID: \"82029309763-pkpvj8blq8nqg46u6s4elna2fl6on66k.apps.googleusercontent.com\",\n  callbackURL: \"/auth/google/callback\",\n  proxy: true\n}, /*#__PURE__*/function () {\n  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(accessToken, refreshToken, profile, done) {\n    var existingUser, user;\n    return regeneratorRuntime.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            _context.prev = 0;\n            _context.next = 3;\n            return User.findOne({\n              googleId: profile.id\n            });\n\n          case 3:\n            existingUser = _context.sent;\n\n            if (!existingUser) {\n              _context.next = 6;\n              break;\n            }\n\n            return _context.abrupt(\"return\", done(null, existingUser));\n\n          case 6:\n            _context.next = 8;\n            return new User({\n              googleId: profile.id,\n              displayName: profile.displayName\n            }).save();\n\n          case 8:\n            user = _context.sent;\n            done(null, user);\n            _context.next = 15;\n            break;\n\n          case 12:\n            _context.prev = 12;\n            _context.t0 = _context[\"catch\"](0);\n            done(_context.t0, null);\n\n          case 15:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, null, [[0, 12]]);\n  }));\n\n  return function (_x, _x2, _x3, _x4) {\n    return _ref.apply(this, arguments);\n  };\n}()));\n\n//# sourceURL=webpack:///./src/server/services/passport.js?");
 
 /***/ }),
 
@@ -202,6 +258,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var expr
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"axios\");\n\n//# sourceURL=webpack:///external_%22axios%22?");
+
+/***/ }),
+
+/***/ "cookie-session":
+/*!*********************************!*\
+  !*** external "cookie-session" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"cookie-session\");\n\n//# sourceURL=webpack:///external_%22cookie-session%22?");
 
 /***/ }),
 
@@ -235,6 +302,17 @@ eval("module.exports = require(\"express-http-proxy\");\n\n//# sourceURL=webpack
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"http-proxy-middleware\");\n\n//# sourceURL=webpack:///external_%22http-proxy-middleware%22?");
+
+/***/ }),
+
+/***/ "mongoose":
+/*!***************************!*\
+  !*** external "mongoose" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"mongoose\");\n\n//# sourceURL=webpack:///external_%22mongoose%22?");
 
 /***/ }),
 
